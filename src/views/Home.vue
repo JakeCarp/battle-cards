@@ -1,18 +1,40 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div id="name">
+
+      <h1>Enter your Name</h1>
+      <input type="text" v-model="gameConfig.playerName">
+      <p>{{gameConfig.playerName}}</p>
+    </div>
+    <div id="card-set">
+      <h1>Choose your Set</h1>
+      <input type="number" min="1" max="4" v-model="gameConfig.set">
+      <p>{{gameConfig.set}}</p>
+    </div>
+    <button @click="startGame(gameConfig)">Start Game</button>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+  export default {
+    name: "home",
+    components: {
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
+    },
+
+    data() {
+      return {
+        gameConfig: {
+          playerName: '',
+          set: 0
+        }
+      }
+    },
+    methods: {
+      startGame(gameData) {
+        this.$store.dispatch('startGame', gameData)
+      }
+
+    }
   }
-}
+
 </script>
