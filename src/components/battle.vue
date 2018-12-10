@@ -1,0 +1,78 @@
+<template>
+  <div>
+    <winScreen v-if="game.winner == 'player'" />
+    <lossScreen v-if="game.winner == 'opponent'" />
+    <tieScreen v-if="game.winner== 'player' && game.winner == 'opponent'" />
+    <div v-if="!game.winner" class="col-12">
+      <div class="row">
+        <div class="col-4 card">
+          <img :src="activeCards.playerCard.img" class="card-img-top">
+          <div class="card-body">
+            <h3 class="card-text">{{activeCards.playerCard.name}}</h3>
+            <p class="card-text">{{activeCards.playerCard.attack}}</p>
+            <p class="card-text">{{activeCards.playerCard.defense}}</p>
+            <p class="card-text">{{activeCards.playerCard.health}}</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <button @click="attack()">Attack</button>
+
+        </div>
+        <div class="col-4 card">
+          <div v-if="activeCards.opponentCard.visible">
+            <img :src="activeCards.playerCard.img" class="card-img-top">
+            <div class="card-body">
+              <h3 class="card-text">{{activeCards.playerCard.name}}</h3>
+              <p class="card-text">{{activeCards.playerCard.attack}}</p>
+              <p class="card-text">{{activeCards.playerCard.defense}}</p>
+              <p class="card-text">{{activeCards.playerCard.health}}</p>
+            </div>
+          </div>
+          <img v-if="activeCards.opponentCard.id && !activeCards.opponentCard.visible" src="@/assets/cardback.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  import winScreen from '@/components/winScreen.vue'
+  import lossScreen from '@/components/lossScreen.vue'
+  import tieScreen from '@/components/tieScreen.vue'
+  export default {
+    name: "battle",
+    components: {
+      lossScreen,
+      winScreen,
+      tieScreen
+    },
+    methods: {
+      attack() {
+        let payload = {
+          attack: {
+            opponentCardId: this.activeCards.opponentCard.id,
+            playerCardId: this.activeCards.playerCard.id
+          },
+          gameId: this.game.id
+        }
+        this.$store.dispatch('attack', payload)
+      }
+    },
+    data() {
+      return {
+
+      }
+
+    },
+    computed: {
+      activeCards() {
+        return this.$store.state.activeCards
+      },
+      game() {
+        return this.$store.state.game
+      }
+    }
+  }
+
+
+
+</script>

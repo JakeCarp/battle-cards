@@ -1,28 +1,45 @@
 <template>
   <div>
-    <h1>this is a game!</h1>
-    <enemyHand />
-    <playerHand />
+    <div class="row">
+      <opponentHand class="col-12 d-flex hand" v-if="game.opponent" />
+    </div>
+    <div class="row">
+      <battle />
+    </div>
+    <div class="row">
+      <playerHand class="col-12 d-flex hand" v-if="game.player" />
+    </div>
   </div>
 
 </template>
 <script>
-  import winScreen from '@/components/winScreen.vue'
-  import lossScreen from '@/components/lossScreen.vue'
-  import tieScreen from '@/components/tieScreen.vue'
+
   import playerHand from '@/components/playerHand.vue'
-  import enemyHand from '@/components/enemyHand.vue'
+  import opponentHand from '@/components/opponentHand.vue'
+  import battle from '@/components/battle.vue'
   export default {
     name: "game",
     components: {
-      winScreen,
-      lossScreen,
-      tieScreen,
-      enemyHand,
+      battle,
+      opponentHand,
       playerHand
 
+
+    },
+    mounted() {
+      this.$store.dispatch('getGame', this.$route.params.id)
+    },
+    computed: {
+      game() {
+        return this.$store.state.game
+      }
 
     }
   }
 
 </script>
+<style>
+  .hand {
+    justify-content: space-between;
+  }
+</style>
