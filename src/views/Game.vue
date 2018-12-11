@@ -4,6 +4,15 @@
       <opponentHand class="col-12 d-flex hand" v-if="game.opponent" />
     </div>
     <div class="row">
+      <div v-if="!game.player.dead && game.opponent.dead">
+        <h1>You Win</h1>
+      </div>
+      <div v-if="game.player.dead && !game.opponent.dead">
+        <h1>You Lose</h1>
+      </div>
+      <div v-if="game.player.dead && game.opponent.dead">
+        <h1>It's a Tie</h1>
+      </div>
       <battle />
     </div>
     <div class="row">

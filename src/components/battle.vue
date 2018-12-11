@@ -1,8 +1,5 @@
 <template>
   <div>
-    <winScreen v-if="game.winner == 'player'" />
-    <lossScreen v-if="game.winner == 'opponent'" />
-    <tieScreen v-if="game.winner== 'player' && game.winner == 'opponent'" />
     <div v-if="!game.winner" class="col-12">
       <div class="row">
         <div class="col-4 card">
