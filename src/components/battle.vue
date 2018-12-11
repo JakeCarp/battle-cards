@@ -32,16 +32,10 @@
   </div>
 </template>
 <script>
-  import winScreen from '@/components/winScreen.vue'
-  import lossScreen from '@/components/lossScreen.vue'
-  import tieScreen from '@/components/tieScreen.vue'
+
   export default {
     name: "battle",
-    components: {
-      lossScreen,
-      winScreen,
-      tieScreen
-    },
+
     methods: {
       attack() {
         let payload = {
